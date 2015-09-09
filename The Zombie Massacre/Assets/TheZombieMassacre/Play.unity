@@ -407,6 +407,7 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
+  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -529,6 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250999868d46d45268a7f91c1d1a439c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startCounter: 0
 --- !u!1 &1438710843
 GameObject:
   m_ObjectHideFlags: 0
