@@ -14,7 +14,7 @@ public class TimeController : MonoBehaviour
 	private float ellapsedTime;
 
 	// flag to start the counter
-	private bool startCounter;
+	public bool startCounter;
 
 	private int minutes;
 	private int seconds;
