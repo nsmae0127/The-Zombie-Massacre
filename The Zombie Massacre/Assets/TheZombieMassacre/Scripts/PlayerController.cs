@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
 	void FixedUpdate ()
 	{
 		Movement ();
+
+		CameraTowardsPlayer ();
 	}
 
 	void Movement ()
@@ -33,10 +35,12 @@ public class PlayerController : MonoBehaviour
 
 	void CameraTowardsPlayer ()
 	{
-		Vector2 min = Camera.main.ViewportToWorldPoint (new Vector2 (0, 0));
 		Vector2 max = Camera.main.ViewportToWorldPoint (new Vector2 (1, 1));
 
-		max.x = max.x - 0.225f;
-		min.x = min.x - 0.225f;
+		max.x = max.x - 0.755f;
+
+		if (transform.position.x > max.x) {
+			Camera.main.transform.position = new Vector3 (2 * max.x, Camera.main.transform.position.y, Camera.main.transform.position.z);
+		}
 	}
 }
