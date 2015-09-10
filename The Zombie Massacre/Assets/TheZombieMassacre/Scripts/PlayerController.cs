@@ -7,10 +7,14 @@ public class PlayerController : MonoBehaviour
 
 	private Rigidbody2D playerRb;
 
+	Animator anim;
+
 	// Use this for initialization
 	void Start ()
 	{
 		playerRb = GetComponent<Rigidbody2D> ();
+
+		anim = GetComponent<Animator> ();
 	}
 
 	void FixedUpdate ()
@@ -20,6 +24,8 @@ public class PlayerController : MonoBehaviour
 
 	void Movement ()
 	{
+		anim.SetFloat ("Speed", Mathf.Abs (Input.GetAxis ("Horizontal")));
+
 		float xAxis = Input.GetAxis ("Horizontal");
 		
 		playerRb.velocity = new Vector2 (xAxis * moveSpeed, playerRb.velocity.y);

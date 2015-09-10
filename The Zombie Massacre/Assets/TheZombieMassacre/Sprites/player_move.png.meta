@@ -1,9 +1,11 @@
 fileFormatVersion: 2
-guid: 150fcbbe7964447b19ab952b42b1564c
-timeCreated: 1441775521
+guid: 465683c3a83f4471faedec0f3ed8cd27
+timeCreated: 1441854976
 licenseType: Pro
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: player_move_0
+    21300002: player_move_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,14 +32,14 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -48,7 +50,27 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: player_move_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1
+        width: 40
+        height: 54
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: player_move_1
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 35
+        height: 54
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 
