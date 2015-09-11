@@ -3,6 +3,27 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
+	[System.Serializable]
+	public class PlayerStats
+	{
+		public int maxHealth = 100;
+
+		private int curHelath;
+		public int CurHelath {
+			get {
+				return curHelath;
+			}
+			set {
+				curHelath = Mathf.Clamp (value, 0, maxHealth);
+			}
+		}
+
+		public void Init ()
+		{
+			CurHelath = maxHealth;
+		}
+	}
+
 	public float moveSpeed;
 
 	private Rigidbody2D playerRb;
