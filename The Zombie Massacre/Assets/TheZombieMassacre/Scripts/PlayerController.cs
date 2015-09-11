@@ -3,26 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-	[System.Serializable]
-	public class PlayerStats
-	{
-		public int maxHealth = 100;
-
-		private int curHelath;
-		public int CurHelath {
-			get {
-				return curHelath;
-			}
-			set {
-				curHelath = Mathf.Clamp (value, 0, maxHealth);
-			}
-		}
-
-		public void Init ()
-		{
-			CurHelath = maxHealth;
-		}
-	}
+	public int health = 100;
 
 	public float moveSpeed;
 
@@ -38,6 +19,8 @@ public class PlayerController : MonoBehaviour
 	
 	public float fireDelay;
 	public float fireOn;
+	
+	public GameObject gameContrller;
 
 	// Use this for initialization
 	void Start ()
@@ -56,6 +39,22 @@ public class PlayerController : MonoBehaviour
 		CameraTowardsPlayer ();
 
 		FireOn ();
+	}
+
+	void OnCollisionStay2D (Collision2D col)
+	{
+		if (col.collider.CompareTag ("Zombie")) {
+			// damaged from zombie, decrease player health
+		}
+	}
+
+	void OnCollisionExit2D (Collision2D col)
+	{
+		if (col.collider.CompareTag ("Zombie")) {
+			
+			// damaged from zombie, decrease player health
+
+		}
 	}
 
 	void Movement ()
@@ -100,5 +99,21 @@ public class PlayerController : MonoBehaviour
 			
 			playerBullet.transform.position = bulletPosition.transform.position;
 		}
+	}
+
+	void PlayerDead ()
+	{
+		if (health <= 0) {
+			// play the player dead animation
+			anim.SetBool ("IsDie", true);
+
+			// change game state to gameover state
+			gameContrller.GetComponent<GameController> ().SetGameState (GameController.GameState.GameOver);
+		}
+	}
+
+	void DestroyGameObject ()
+	{
+		Destroy (gameObject);
 	}
 }

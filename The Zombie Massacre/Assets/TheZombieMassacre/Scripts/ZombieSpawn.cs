@@ -10,13 +10,13 @@ public class ZombieSpawn : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		Invoke ("SpawnZombie", spawnRate);
+
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-	
+
 	}
 
 	void SpawnZombie ()
@@ -26,5 +26,41 @@ public class ZombieSpawn : MonoBehaviour
 		GameObject zombie = (GameObject)Instantiate (zombiePrefab);
 
 		zombie.transform.position = new Vector2 (max.x, 0);
+
+		ScheduleNextZombieSpawn ();
+	}
+
+	void ScheduleNextZombieSpawn ()
+	{
+		float spawnDelay;
+
+		if (spawnRate > 1f)
+			spawnDelay = Random.Range (1f, spawnRate);
+		else 
+			spawnDelay = 1f;
+
+		Invoke ("SpawnZombie", spawnDelay);
+	}
+
+	void IncreaseSpawnRate ()
+	{
+		if (spawnRate > 1f)
+			spawnRate--;
+
+		if (spawnRate == 1f)
+			CancelInvoke ("IncreaseSpawnRate");
+	}
+
+	public void ScheduleZombieSpawn ()
+	{
+		Invoke ("SpawnZombie", spawnRate);
+
+		InvokeRepeating ("IncreaseSpawnRate", 0f, 30f);
+	}
+
+	public void UnscheduleZombieSpawn ()
+	{
+		CancelInvoke ("SpawnZombie");
+		CancelInvoke ("IncreaseSpawnRate");
 	}
 }
