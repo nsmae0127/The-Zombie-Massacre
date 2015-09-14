@@ -3,7 +3,12 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-	public int health = 100;
+	[System.Serializable]
+	public class PlayerStats
+	{
+		public int health = 100;
+	}
+	public PlayerStats playerStats = new PlayerStats ();
 
 	public float moveSpeed;
 
@@ -22,6 +27,8 @@ public class PlayerController : MonoBehaviour
 	
 	public GameObject gameContrller;
 
+	private bool isDead;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -30,6 +37,8 @@ public class PlayerController : MonoBehaviour
 		anim = GetComponent<Animator> ();
 
 		audioSrc = GetComponent<AudioSource> ();
+
+		isDead = false;
 	}
 
 	void FixedUpdate ()
@@ -39,22 +48,6 @@ public class PlayerController : MonoBehaviour
 		CameraTowardsPlayer ();
 
 		FireOn ();
-	}
-
-	void OnCollisionStay2D (Collision2D col)
-	{
-		if (col.collider.CompareTag ("Zombie")) {
-			// damaged from zombie, decrease player health
-		}
-	}
-
-	void OnCollisionExit2D (Collision2D col)
-	{
-		if (col.collider.CompareTag ("Zombie")) {
-			
-			// damaged from zombie, decrease player health
-
-		}
 	}
 
 	void Movement ()
@@ -101,15 +94,27 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	public void DamagePlayer (int damage)
+	{
+		if (playerStats.health > 0) 
+			playerStats.health -= damage;
+
+		if (playerStats.health <= 0) {
+			PlayerDead ();
+			isDead = true;
+		}
+	}
+
 	void PlayerDead ()
 	{
-		if (health <= 0) {
-			// play the player dead animation
+		if (isDead == false)
+		// play the player dead animation
 			anim.SetBool ("IsDie", true);
+		else 
+			anim.SetBool ("IsDie", false);
 
-			// change game state to gameover state
-			gameContrller.GetComponent<GameController> ().SetGameState (GameController.GameState.GameOver);
-		}
+		// change game state to gameover state
+		gameContrller.GetComponent<GameController> ().SetGameState (GameController.GameState.GameOver);
 	}
 
 	void DestroyGameObject ()

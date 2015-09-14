@@ -58,9 +58,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: .0268550627, y: .188404992}
+  m_Offset: {x: .00219414383, y: .188404992}
   serializedVersion: 2
-  m_Size: {x: .14305675, y: .350258023}
+  m_Size: {x: .192378595, y: .350258023}
 --- !u!95 &9524664
 Animator:
   serializedVersion: 3
@@ -90,7 +90,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: .100000001
+  maxDistance: .5
+  cd: 0
+  damage: 5
+  pc: {fileID: 0}
+  speed: 1
 --- !u!212 &21218860
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -123,7 +127,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 193732}

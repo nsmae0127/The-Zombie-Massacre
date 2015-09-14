@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameController : MonoBehaviour
@@ -16,7 +17,7 @@ public class GameController : MonoBehaviour
 	public GameObject timer;
 
 	public GameObject killCount;
-
+	
 	// Use this for initialization
 	void Start ()
 	{
@@ -41,6 +42,8 @@ public class GameController : MonoBehaviour
 
 			// start zombie spawn
 			zombieSpawn.GetComponent<ZombieSpawn> ().ScheduleZombieSpawn ();
+
+			// reset timer 0 second
 
 			break;
 

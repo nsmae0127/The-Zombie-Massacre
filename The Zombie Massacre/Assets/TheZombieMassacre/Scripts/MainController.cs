@@ -11,7 +11,7 @@ public class MainController : MonoBehaviour
 
 	private Image muteImg;
 	private bool isMute;
-
+	
 	// Use this for initialization
 	void Start ()
 	{

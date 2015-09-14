@@ -3,7 +3,11 @@ using System.Collections;
 
 public class ZombieController : MonoBehaviour
 {
-	public GameObject target;
+	public Transform target;
+	public float maxDistance;
+	public float cd;
+	public int damage;
+	public PlayerController pc;
 
 	public float speed;
 
@@ -14,6 +18,11 @@ public class ZombieController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		GameObject player = GameObject.FindGameObjectWithTag ("Player");
+		target = player.transform;
+
+		pc = player.GetComponent<PlayerController> ();
+
 		anim = GetComponent<Animator> ();
 
 		killCount = GameObject.FindGameObjectWithTag ("KillCount");
@@ -22,11 +31,23 @@ public class ZombieController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		target = GameObject.FindWithTag ("Player");
+		Vector3 dir = Vector3.Normalize (target.transform.position - transform.position);
+		
+		transform.position += dir * speed * Time.deltaTime;
+	
+		float distance = Vector2.Distance (target.position, transform.position);
 
-		Vector3 distance = target.transform.position - transform.position;
+		if (distance < maxDistance) {
+			Attack ();
+		}
 
-		transform.position += distance * speed * Time.deltaTime;
+		if (cd > 0) {
+			cd = cd * Time.deltaTime;
+		}
+
+		if (cd < 0) {
+			cd = 0;
+		}
 	}
 
 	void OnCollisionEnter2D (Collision2D col)
@@ -34,7 +55,6 @@ public class ZombieController : MonoBehaviour
 		if (col.collider.CompareTag ("PlayerBullet")) {
 
 			// decrease zombie's health
-
 
 			// play a damaged animation
 			Dead ();
@@ -44,25 +64,20 @@ public class ZombieController : MonoBehaviour
 		}
 	}
 
-	void OnCollisionStay2D (Collision2D col)
+	void Attack ()
 	{
-		if (col.collider.CompareTag ("Player")) {
-			
-			// play attack animation
+		if (cd == 0) {
 			anim.SetBool ("IsAttack", true);
+			pc.DamagePlayer (damage);
+			cd = 2;
+		} else {
+			anim.SetBool ("IsAttack", false);
 		}
-	}
-
-	void OnCollisionExit2D ()
-	{
-		anim.SetBool ("IsAttack", false);
 	}
 
 	void Dead ()
 	{
-		anim.SetBool ("isDead", true);
-
-		speed = 0;
+		anim.SetBool ("IsDead", true);
 	}
 
 	void DestroyGameObject ()
