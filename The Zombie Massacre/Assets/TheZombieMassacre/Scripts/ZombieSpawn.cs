@@ -25,7 +25,7 @@ public class ZombieSpawn : MonoBehaviour
 
 		GameObject zombie = (GameObject)Instantiate (zombiePrefab);
 
-		zombie.transform.position = new Vector2 (max.x, 0);
+		zombie.transform.position = new Vector2 (max.x, -2f);
 
 		ScheduleNextZombieSpawn ();
 	}

@@ -12,11 +12,17 @@ public class GameController : MonoBehaviour
 	}
 	GameState gmState;
 
+	public GameObject player;
+
 	public GameObject zombieSpawn;
 
 	public GameObject timer;
 
 	public GameObject killCount;
+
+	public GameObject gameover;
+	public GameObject result;
+	public Text kill;
 	
 	// Use this for initialization
 	void Start ()
@@ -37,6 +43,9 @@ public class GameController : MonoBehaviour
 
 		case GameState.GamePlay:
 
+			// player init
+			player.GetComponent<PlayerController> ().PlayerInit ();
+
 			// initiate the kill count 0
 			killCount.GetComponent<KillCount> ().Kill = 0;
 
@@ -44,10 +53,12 @@ public class GameController : MonoBehaviour
 			zombieSpawn.GetComponent<ZombieSpawn> ().ScheduleZombieSpawn ();
 
 			// reset timer 0 second
+			timer.GetComponent<TimeController> ().StartTimeCounter ();
 
 			break;
 
 		case GameState.GameOver:
+			PlayerPrefs.SetInt ("KillCount", killCount.GetComponent<KillCount> ().Kill);
 
 			// stop zombie spawn
 			zombieSpawn.GetComponent<ZombieSpawn> ().UnscheduleZombieSpawn ();
@@ -56,6 +67,9 @@ public class GameController : MonoBehaviour
 			timer.GetComponent<TimeController> ().StopTimeCounter ();
 
 			// game over image visible
+			gameover.SetActive (true);
+			result.SetActive (true);
+			kill.text = string.Format ("{0}", PlayerPrefs.GetInt ("KillCount"));
 
 			// change game state to GameStart state after 3 seconds
 

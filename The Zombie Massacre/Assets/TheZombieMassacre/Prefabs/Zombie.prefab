@@ -92,7 +92,7 @@ MonoBehaviour:
   target: {fileID: 0}
   maxDistance: .5
   cd: 0
-  damage: 5
+  damage: 20
   pc: {fileID: 0}
   speed: 1
 --- !u!212 &21218860
@@ -119,7 +119,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300002, guid: 7ee894214ad57054283d08a4b3ef390f, type: 3}
+  m_Sprite: {fileID: 21300002, guid: 2b58e73fec6a93a439ede9c899dc607d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
@@ -131,6 +131,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: speed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: damage
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

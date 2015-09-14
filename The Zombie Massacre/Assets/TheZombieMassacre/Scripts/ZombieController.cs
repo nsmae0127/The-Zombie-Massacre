@@ -15,6 +15,9 @@ public class ZombieController : MonoBehaviour
 
 	private GameObject killCount;
 
+	private int maxHealth = 50;
+	private int currentHealth;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -26,6 +29,8 @@ public class ZombieController : MonoBehaviour
 		anim = GetComponent<Animator> ();
 
 		killCount = GameObject.FindGameObjectWithTag ("KillCount");
+
+		currentHealth = maxHealth;
 	}
 	
 	// Update is called once per frame
@@ -57,10 +62,18 @@ public class ZombieController : MonoBehaviour
 			// decrease zombie's health
 
 			// play a damaged animation
-			Dead ();
+			Damaged (20);
 
-			// update the kill count
-			killCount.GetComponent<KillCount> ().Kill += 1;
+		}
+	}
+
+	void Damaged (int damage)
+	{
+		if (currentHealth > 0)
+			currentHealth -= damage;
+
+		if (currentHealth <= 0) {
+			Dead ();
 		}
 	}
 
@@ -78,6 +91,11 @@ public class ZombieController : MonoBehaviour
 	void Dead ()
 	{
 		anim.SetBool ("IsDead", true);
+
+		speed = 0;
+
+		// update the kill count
+		killCount.GetComponent<KillCount> ().Kill += 1;
 	}
 
 	void DestroyGameObject ()
