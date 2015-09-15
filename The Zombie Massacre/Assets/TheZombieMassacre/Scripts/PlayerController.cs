@@ -21,22 +21,36 @@ public class PlayerController : MonoBehaviour
 	
 	public GameObject gameContrller;
 
-	private bool isDead;
+	public bool isDead;
 
 	public Image hp;
 	private float cachedY;
 	private float minXValue;
 	private float maxXValue;
-	public int maxHealth;
+	private int maxHealth;
+	[SerializeField]
 	private int currentHealth;
+
 	public int CurrentHealth {
 		get {
 			return currentHealth;
 		}
 		set {
 			currentHealth = value;
-//			HandleHealth ();
+
 			InvokeRepeating ("decreaseHealth", 0f, 2f);
+		}
+	}
+
+	[SerializeField]
+	private bool isDamage;
+
+	public bool IsDamage {
+		get {
+			return isDamage;
+		}
+		set {
+			isDamage = value;
 		}
 	}
 	
@@ -51,21 +65,15 @@ public class PlayerController : MonoBehaviour
 
 		isDead = false;
 
+		maxHealth = 100;
 		currentHealth = maxHealth;
-
-//		HealthInit ();
 	}
 
 	void decreaseHealth ()
 	{
 		print (currentHealth);
 		float calcHealth = currentHealth / maxHealth;
-		SetHealth (calcHealth);
-	}
-
-	void SetHealth (float myHealth)
-	{
-		hp.fillAmount = myHealth;
+		hp.fillAmount = calcHealth;
 	}
 
 	void FixedUpdate ()
@@ -131,12 +139,12 @@ public class PlayerController : MonoBehaviour
 
 	public void DamagePlayer (int damage)
 	{
-		if (currentHealth > 0) 
-			CurrentHealth -= damage;
+		if (currentHealth > 0) {
+			currentHealth -= damage;
+		}
 
 		if (currentHealth <= 0) {
 			PlayerDead ();
-			isDead = true;
 		}
 	}
 
@@ -145,35 +153,12 @@ public class PlayerController : MonoBehaviour
 		if (isDead == false)
 		// play the player dead animation
 			anim.SetBool ("IsDie", true);
-		else 
+		else
 			anim.SetBool ("IsDie", false);
 
 		// change game state to gameover state
 		gameContrller.GetComponent<GameController> ().SetGameState (GameController.GameState.GameOver);
 	}
-
-//	private void HandleHealth ()
-//	{
-//		float currentXValue = MapValues (currentHealth, 0, maxHealth, minXValue, maxXValue);
-//
-//		print (cachedY);
-//		hpTransform.position = new Vector2 (currentXValue, cachedY);
-//
-////		visualHp.fillAmount = Mathf.Lerp (visualHp.fillAmount, currentXValue, Time.deltaTime * 10);
-//	}
-//
-//	private void HealthInit ()
-//	{
-//		cachedY = hpTransform.position.y;
-//		maxXValue = hpTransform.position.x;
-//		minXValue = hpTransform.position.x - hpTransform.rect.width;
-//		currentHealth = maxHealth;
-//	}
-//
-//	private float MapValues (float x, float inMin, float inMax, float outMin, float outMax)
-//	{
-//		return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
-//	}
 
 	void DestroyGameObject ()
 	{

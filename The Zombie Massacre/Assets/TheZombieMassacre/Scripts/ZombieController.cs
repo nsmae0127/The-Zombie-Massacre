@@ -43,7 +43,10 @@ public class ZombieController : MonoBehaviour
 		float distance = Vector2.Distance (target.position, transform.position);
 
 		if (distance < maxDistance) {
+			pc.IsDamage = true;
 			Attack ();
+		} else {
+			pc.IsDamage = false;
 		}
 
 		if (cd > 0) {
@@ -81,10 +84,15 @@ public class ZombieController : MonoBehaviour
 	{
 		if (cd == 0) {
 			anim.SetBool ("IsAttack", true);
-			pc.DamagePlayer (damage);
+			if (pc.IsDamage == true)
+				pc.DamagePlayer (10);
+	
+			if (pc.isDead == true)
+				anim.SetBool ("IsAttack", false);
 			cd = 2;
 		} else {
 			anim.SetBool ("IsAttack", false);
+			pc.IsDamage = false;
 		}
 	}
 

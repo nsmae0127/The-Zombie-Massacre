@@ -924,8 +924,10 @@ MonoBehaviour:
   fireDelay: 1
   fireOn: 0
   gameContrller: {fileID: 587067084}
+  isDead: 0
   hp: {fileID: 1291689826}
-  maxHealth: 100
+  currentHealth: 0
+  isDamage: 0
 --- !u!61 &803135508
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1307,7 +1309,6 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
-  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
