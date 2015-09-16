@@ -84,15 +84,13 @@ public class ZombieController : MonoBehaviour
 	{
 		if (cd == 0) {
 			anim.SetBool ("IsAttack", true);
-			if (pc.IsDamage == true)
-				pc.DamagePlayer (10);
+			pc.DamagePlayer (10);
 	
 			if (pc.isDead == true)
 				anim.SetBool ("IsAttack", false);
 			cd = 2;
 		} else {
 			anim.SetBool ("IsAttack", false);
-			pc.IsDamage = false;
 		}
 	}
 

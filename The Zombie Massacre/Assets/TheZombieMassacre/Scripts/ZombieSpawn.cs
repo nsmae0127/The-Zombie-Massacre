@@ -7,18 +7,6 @@ public class ZombieSpawn : MonoBehaviour
 
 	private float spawnRate = 5f;
 
-	// Use this for initialization
-	void Start ()
-	{
-
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-
-	}
-
 	void SpawnZombie ()
 	{
 		Vector2 max = Camera.main.ViewportToWorldPoint (new Vector2 (1, 1));
@@ -36,7 +24,7 @@ public class ZombieSpawn : MonoBehaviour
 
 		if (spawnRate > 1f)
 			spawnDelay = Random.Range (1f, spawnRate);
-		else 
+		else
 			spawnDelay = 1f;
 
 		Invoke ("SpawnZombie", spawnDelay);

@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
 
 	public GameObject bulletPrefab;
 	public GameObject bulletPosition;
-	
+
 	public float fireDelay;
 	public float fireOn;
 	
@@ -23,11 +23,10 @@ public class PlayerController : MonoBehaviour
 
 	public bool isDead;
 
-	public Image hp;
-	private float cachedY;
-	private float minXValue;
-	private float maxXValue;
+	public Slider hpBar;
+
 	private int maxHealth;
+
 	[SerializeField]
 	private int currentHealth;
 
@@ -37,8 +36,6 @@ public class PlayerController : MonoBehaviour
 		}
 		set {
 			currentHealth = value;
-
-			InvokeRepeating ("decreaseHealth", 0f, 2f);
 		}
 	}
 
@@ -69,13 +66,6 @@ public class PlayerController : MonoBehaviour
 		currentHealth = maxHealth;
 	}
 
-	void decreaseHealth ()
-	{
-		print (currentHealth);
-		float calcHealth = currentHealth / maxHealth;
-		hp.fillAmount = calcHealth;
-	}
-
 	void FixedUpdate ()
 	{
 		Movement ();
@@ -83,6 +73,8 @@ public class PlayerController : MonoBehaviour
 		CameraTowardsPlayer ();
 
 		FireOn ();
+
+		hpBar.value = currentHealth * 0.01f;
 	}
 
 	public void PlayerInit ()
@@ -120,7 +112,7 @@ public class PlayerController : MonoBehaviour
 	void FireOn ()
 	{
 		anim.SetBool ("IsFireOn", false);
-		
+
 		if (Input.GetKeyDown (KeyCode.Space) && Time.time > fireOn) {
 
 			audioSrc.PlayOneShot (fireon);
@@ -132,15 +124,16 @@ public class PlayerController : MonoBehaviour
 			
 			// instantiate the player's bullet
 			GameObject playerBullet = (GameObject)Instantiate (bulletPrefab);
-			
+
 			playerBullet.transform.position = bulletPosition.transform.position;
 		}
 	}
 
 	public void DamagePlayer (int damage)
 	{
-		if (currentHealth > 0) {
+		if (isDamage == true) {
 			currentHealth -= damage;
+			isDamage = false;
 		}
 
 		if (currentHealth <= 0) {
