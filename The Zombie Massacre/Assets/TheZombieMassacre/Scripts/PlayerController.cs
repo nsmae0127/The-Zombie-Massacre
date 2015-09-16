@@ -28,7 +28,8 @@ public class PlayerController : MonoBehaviour
 	private int maxHealth;
 
 	[SerializeField]
-	private int currentHealth;
+	private int
+		currentHealth;
 
 	public int CurrentHealth {
 		get {
@@ -40,7 +41,8 @@ public class PlayerController : MonoBehaviour
 	}
 
 	[SerializeField]
-	private bool isDamage;
+	private bool
+		isDamage;
 
 	public bool IsDamage {
 		get {
@@ -137,17 +139,17 @@ public class PlayerController : MonoBehaviour
 		}
 
 		if (currentHealth <= 0) {
+			isDead = true;
 			PlayerDead ();
 		}
 	}
 
 	void PlayerDead ()
 	{
-		if (isDead == false)
+		if (isDead == false) 
 		// play the player dead animation
 			anim.SetBool ("IsDie", true);
-		else
-			anim.SetBool ("IsDie", false);
+		isDead = true;
 
 		// change game state to gameover state
 		gameContrller.GetComponent<GameController> ().SetGameState (GameController.GameState.GameOver);
