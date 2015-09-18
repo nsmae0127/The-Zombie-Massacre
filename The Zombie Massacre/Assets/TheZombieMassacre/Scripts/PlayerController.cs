@@ -27,6 +27,17 @@ public class PlayerController : MonoBehaviour
 
 	private int maxHealth;
 
+	private int coins;
+
+	public int Coins {
+		get {
+			return coins;
+		}
+		set {
+			coins = value;
+		}
+	}
+
 	[SerializeField]
 	private int
 		currentHealth;
@@ -156,7 +167,7 @@ public class PlayerController : MonoBehaviour
 
 		// change game state to gameover state
 		gameContrller.GetComponent<GameController> ().SetGameState (GameController.GameState.GameOver);
-	}
+	}	
 
 	void DestroyGameObject ()
 	{

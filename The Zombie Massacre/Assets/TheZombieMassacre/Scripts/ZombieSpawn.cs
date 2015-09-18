@@ -5,7 +5,7 @@ public class ZombieSpawn : MonoBehaviour
 {
 	public GameObject zombiePrefab;
 
-	private float spawnRate = 5f;
+	private float spawnRate = 8f;
 
 	void SpawnZombie ()
 	{

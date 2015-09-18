@@ -18,6 +18,9 @@ public class ZombieController : MonoBehaviour
 	private int maxHealth = 50;
 	private int currentHealth;
 
+	public GameObject healthPrefab;
+	public GameObject coinPrefab;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -66,7 +69,6 @@ public class ZombieController : MonoBehaviour
 
 			// play a damaged animation
 			Damaged (20);
-
 		}
 	}
 
@@ -104,8 +106,25 @@ public class ZombieController : MonoBehaviour
 		killCount.GetComponent<KillCount> ().Kill += 1;
 	}
 
+	void DroppedItem ()
+	{
+		float dropRate = 2;
+		Vector3 dropPos = new Vector3 (transform.position.x, transform.position.y + 1f, transform.position.z);
+
+		// dropped item in random rate
+		if (Random.Range (0, 3) < 1) {
+			if (Random.Range (0, 5) < dropRate) 
+				Instantiate (coinPrefab, dropPos, Quaternion.identity);
+		} else {
+			if (Random.Range (0, 5) < dropRate) 
+				Instantiate (healthPrefab, dropPos, Quaternion.identity);
+		}
+	}
+
 	void DestroyGameObject ()
 	{
 		Destroy (gameObject);
+
+		DroppedItem ();
 	}
 }

@@ -7,6 +7,11 @@ TagManager:
   - PlayerBullet
   - Zombie
   - KillCount
+  - Ground
+  - Coin
+  - Health
+  - Wallet
+  - SoundController
   layers:
   - Default
   - TransparentFX
