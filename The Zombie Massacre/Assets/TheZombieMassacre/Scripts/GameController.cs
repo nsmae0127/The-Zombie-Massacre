@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
 		GamePlay,
 		GameOver
 	}
+
 	GameState gmState;
 
 	public GameObject player;
@@ -20,8 +21,8 @@ public class GameController : MonoBehaviour
 
 	public GameObject killCount;
 
-	public GameObject gameover;
 	public GameObject result;
+
 	public Text kill;
 	
 	// Use this for initialization
@@ -35,9 +36,7 @@ public class GameController : MonoBehaviour
 		switch (gmState) {
 		case GameState.GameReady:
 
-			// hide game over image
-
-			// menu button visible
+			Application.LoadLevel (0);
 
 			break;
 
@@ -67,8 +66,9 @@ public class GameController : MonoBehaviour
 			timer.GetComponent<TimeController> ().StopTimeCounter ();
 
 			// game over image visible
-			gameover.SetActive (true);
+//			gameover.SetActive (true);
 			result.SetActive (true);
+
 			kill.text = string.Format ("{0}", PlayerPrefs.GetInt ("KillCount"));
 
 			// change game state to GameStart state after 3 seconds

@@ -146,10 +146,13 @@ public class PlayerController : MonoBehaviour
 
 	void PlayerDead ()
 	{
-		if (isDead == false) 
-		// play the player dead animation
+		if (isDead == true) {
+			// play the player dead animation
 			anim.SetBool ("IsDie", true);
-		isDead = true;
+			isDead = false;
+		} else {
+			anim.SetBool ("IsDie", false);
+		}
 
 		// change game state to gameover state
 		gameContrller.GetComponent<GameController> ().SetGameState (GameController.GameState.GameOver);
